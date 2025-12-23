@@ -290,14 +290,40 @@ Le porteur d’une vie qui continue de s’écrire.
         }
 
         // Données des univers
+         // On utilise des `backticks` (le caractère `) pour permettre au texte de s'étendre sur plusieurs lignes
         const universeData = {
-            innovation: { title: "Innovation et Travail", content: "Description" },
-            sport: { title: "Sport & Performances", content: "La détermination et la force qui t'animent à chaque défi." },
-            design: { title: "Design & Tendances", content: "Ton oeil expert pour le beau et ton élégance naturelle." },
-            gastro: { title: "Gastronomie", content: "L'art des saveurs et des moments précieux partagés." },
-            culture: { title: "Culture & Art", content: "Ta curiosité insatiable pour l'esprit et la création." },
-            sexy: { title: "Une femme sexy", content: "Ton magnétisme et ta sensualité irrésistible." }
+            innovation: { 
+                title: "Innovation et Travail", 
+                content: `Très tôt, le travail n’a jamais été un problème pour elle. À l’école primaire déjà, elle est forte. Dans les premières. Mais sans rigidité, sans dureté. Toujours avec une forme de bonne humeur, un humour léger, une manière d’être sérieuse sans jamais se prendre trop au sérieux.</p> 
+                <p> Même au lycée, quand les choses deviennent plus complexes, quand le cadre scolaire montre ses limites, le fond reste le même. Ce n’est pas le travail qui pose question. C’est plutôt le sens qu’on lui donne. </p> 
+                <p> Elle comprend vite quelque chose d’essentiel : la performance seule ne suffit pas. Ce qui compte, c’est la relation humaine qui l’accompagne. Et là-dessus, elle est naturellement en avance. Elle sait travailler, mais surtout, elle sait être avec les autres. </p> 
+                <p> La médecine n’est pas une ligne droite. Peu importe. Ce n’est pas le sujet. Car dans les matières les plus exigeantes — la bio-organique, par exemple — elle montre ce dont elle est capable. Presque majeure de promotion. Une rigueur intellectuelle impressionnante. La preuve que quand elle s’engage, elle va au bout. </p> 
+                <p> La kinésithérapie devient alors une évidence. Pas seulement pour la technique, mais pour ce qu’elle permet : accompagner, écouter, comprendre, faire progresser. </p> 
+                <p> Il suffit de regarder ses patients. Leurs résultats. Leur fidélité. Leur confiance. </p>
+                <p> Il suffit aussi de regarder les lieux qu’elle crée. Son cabinet n’est jamais un simple espace de soins. C’est un lieu où l’on aime travailler. Un endroit où la bonne humeur circule autant que l’exigence. Un cabinet qui évolue sans cesse, toujours tourné vers une seule chose : le patient. </p>
+                <p> Ce “tourné vers l’autre” n’est jamais théorique. Il est concret. Dans la manière d’accueillir. Dans la manière d’écouter. Dans la manière d’adapter. Dans la manière d’expliquer, d’accompagner, d’embarquer. </p>
+                <p> Et c’est là que réside sa singularité. Ce n’est jamais seulement technique. C’est profondément humain. </p>
+                <p> Elle se forme, bien sûr. Elle affine ses compétences. Mais elle va plus loin. Elle se demande sans cesse : Qu’est-ce que cette personne attend vraiment ? Comment puis-je lui apporter quelque chose de juste, de durable, de pertinent ? </p>
+                <p> Même lorsqu’un cabinet fonctionne, même lorsque tout est en place, elle ne s’arrête pas. Elle questionne. Elle remet en perspective. Elle s’interroge aussi sur elle-même : Qu’est-ce que je veux faire maintenant ? Vers où ai-je envie d’aller ? </p>
+                <p> Ce ne sont pas des questions faciles. Mais elle ne les évite pas. </p>
+                <p> Alors elle explore. Elle se forme à distance. Elle pense de nouveaux formats. De nouvelles manières d’accompagner. De nouvelles “niches”, comme on lui répète souvent avec un sourire — ce mot qu’elle détourne avec humour, parce qu’au fond, ce ne sont jamais des cases, mais des personnes. </p>
+                <p> Elle trace son chemin avec patience. Elle apprend. Elle ajuste. Elle construit ce qu’elle veut proposer, toujours avec la même exigence. </p>
+                <p> Ce qui la définit profondément dans le travail, c’est cet équilibre rare : l’excellence sans arrogance, l’humilité sans effacement. </p>
+                <p> Elle est excellente dans ce qu’elle fait. Opérationnellement. Techniquement. Mais aussi humainement. </p>
+                <p> Elle sait écouter. Elle sait entraîner l’autre. Elle sait faire progresser sans imposer. Elle comprend avant d’agir. </p>
+                <p> Et aujourd’hui, alors que le monde change, que les attentes des patients évoluent, que les pratiques se transforment, que la profession elle-même se redéfinit, elle est toujours là. </p>
+                <p> En réflexion. En mouvement. En création. </p>
+                <p> Nous sommes en 2026. Et Mathilde continue de proposer quelque chose de nouveau. Quelque chose de pertinent. Quelque chose qui a du sens. </p>
+                <p> Faire évoluer son travail sans jamais perdre l’humain. C’est exigeant. C’est rare. Et c’est profondément beau. </p>
+                <p> <strong>Un cadeau pour soutenir cela, un cadeau pour ne pas te faire oublier tout ça.</strong> </p>`
+            },
+            sport: { title: "Sport & Performances", content: "La détermination et la force qui t'animent à chaque défi. Un corps sain pour un esprit en mouvement." },
+            design: { title: "Design & Tendances", content: "Ton oeil expert pour le beau et ton élégance naturelle. L'harmonie dans chaque détail de ta vie." },
+            gastro: { title: "Gastronomie", content: "L'art des saveurs et des moments précieux partagés. Un univers de gourmandise et de finesse." },
+            culture: { title: "Culture & Art", content: "Ta curiosité insatiable pour l'esprit et la création. Nourrir l'âme par la découverte." },
+            sexy: { title: "Une femme sexy", content: "Ton magnétisme et ta sensualité irrésistible. La confiance d'une femme rayonnante." }
         };
+
 
         // Navigation entre les écrans
         function goToScreen(screenId) {
