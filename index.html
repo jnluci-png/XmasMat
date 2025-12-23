@@ -110,13 +110,16 @@
 </head>
 <body>
     <div class="snow-bg"></div>
+    <!-- Musique de fond -->
     <audio id="bgMusic" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
 
+    <!-- Bouton de contrôle de la musique -->
     <button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
         <svg id="musicOnIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
         <svg id="musicOffIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
     </button>
 
+    <!-- Écran de bienvenue -->
     <div id="screen-welcome" class="screen active-screen">
         <div class="mb-20">
             <div class="w-20 h-20 mx-auto border-[1px] border-gold/40 rounded-full flex items-center justify-center mb-12 relative">
@@ -129,6 +132,7 @@
         <button onclick="startApp()" class="btn-gold">Explorer</button>
     </div>
 
+    <!-- Écran de texte d'introduction -->
     <div id="screen-intro-text" class="screen">
         <div class="glass-card p-12 max-w-lg w-full">
             <h2 class="text-xl mb-10 text-gold uppercase tracking-[0.4em] font-semibold">Douce Mathilde</h2>
@@ -140,37 +144,44 @@
         </div>
     </div>
 
+    <!-- Écran principal avec les cartes d'univers -->
     <div id="screen-home" class="screen">
         <div class="mb-14">
-            <h2 class="text-xl font-light uppercase tracking-[0.4em] text-gold mb-3">La Collection</h2>
+            <h2 class="text-xl font-light uppercase tracking-[0.4em] text-gold mb-3">Mathilde, c'est...</h2>
             <div class="w-12 h-[1px] bg-gold/40 mx-auto"></div>
         </div>
         <div class="universe-container">
+            <!-- Innovation & Travail -->
             <div onclick="openModal('innovation')" class="card-universe card-1">
-                <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&w=400&q=80" class="card-image">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" class="card-image">
                 <div class="card-overlay"></div>
                 <div class="card-content"><span class="card-title">Innovation & Travail</span></div>
             </div>
+            <!-- Sport & Performances - NOUVELLE IMAGE -->
             <div onclick="openModal('sport')" class="card-universe card-2">
-                <img src="https://images.unsplash.com/photo-1548690312-e3b507d17a4d?auto=format&fit=crop&w=400&q=80" class="card-image">
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80" class="card-image">
                 <div class="card-overlay"></div>
                 <div class="card-content"><span class="card-title">Sport & Performances</span></div>
             </div>
+            <!-- Design & Tendances -->
             <div onclick="openModal('design')" class="card-universe card-3">
                 <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=400&q=80" class="card-image">
                 <div class="card-overlay"></div>
                 <div class="card-content"><span class="card-title">Design & Tendances</span></div>
             </div>
+            <!-- Gastronomie -->
             <div onclick="openModal('gastro')" class="card-universe card-4">
                 <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&w=400&q=80" class="card-image">
                 <div class="card-overlay"></div>
                 <div class="card-content"><span class="card-title">Gastronomie</span></div>
             </div>
+            <!-- Culture & Art -->
             <div onclick="openModal('culture')" class="card-universe card-5">
                 <img src="https://images.unsplash.com/photo-1518929458119-e5bf444c30f4?auto=format&fit=crop&w=400&q=80" class="card-image">
                 <div class="card-overlay"></div>
                 <div class="card-content"><span class="card-title">Culture & Art</span></div>
             </div>
+            <!-- Une femme sexy -->
             <div onclick="openModal('sexy')" class="card-universe card-6">
                 <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=400&q=80" class="card-image">
                 <div class="card-overlay"></div>
@@ -179,6 +190,7 @@
         </div>
     </div>
 
+    <!-- Modale de détail -->
     <div id="modal-container" class="modal" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <button onclick="closeModal()" class="absolute top-8 right-8 text-gray-300">
@@ -196,16 +208,19 @@
         const onIcon = document.getElementById('musicOnIcon');
         const offIcon = document.getElementById('musicOffIcon');
 
+        // Gérer la musique
         function toggleMusic() {
             if (audio.paused) { audio.play(); onIcon.classList.remove('hidden'); offIcon.classList.add('hidden'); }
             else { audio.pause(); onIcon.classList.add('hidden'); offIcon.classList.remove('hidden'); }
         }
 
+        // Lancer l'application
         function startApp() {
             audio.play().then(() => { onIcon.classList.remove('hidden'); offIcon.classList.add('hidden'); }).catch(e => {});
             goToScreen('screen-intro-text');
         }
 
+        // Données des univers
         const universeData = {
             innovation: { title: "Innovation et Travail", content: "Ton esprit brillant et ta capacité à inventer demain. Un hommage à ton parcours pro." },
             sport: { title: "Sport & Performances", content: "La détermination et la force qui t'animent à chaque défi." },
@@ -215,12 +230,14 @@
             sexy: { title: "Une femme sexy", content: "Ton magnétisme et ta sensualité irrésistible." }
         };
 
+        // Navigation entre les écrans
         function goToScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
             document.getElementById(screenId).classList.add('active-screen');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Ouvrir la pop-up
         function openModal(id) {
             const data = universeData[id];
             document.getElementById('modal-title').innerText = data.title;
@@ -229,6 +246,7 @@
             document.body.style.overflow = 'hidden';
         }
 
+        // Fermer la pop-up
         function closeModal() {
             document.getElementById('modal-container').style.display = 'none';
             document.body.style.overflow = 'auto';
