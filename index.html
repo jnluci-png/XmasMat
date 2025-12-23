@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathilde... c'est</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --midnight-blue: #050b18;
+            --deep-navy: #0a192f;
+            --gold: #d4af37;
+            --soft-gold: #f1d592;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, var(--deep-navy) 0%, var(--midnight-blue) 100%);
+            color: #fff;
+            overflow-x: hidden;
+            margin: 0;
+            min-height: 100vh;
+        }
+        h1, h2 { font-family: 'Playfair Display', serif; }
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(125deg, rgba(255,255,255,0.02) 0%, transparent 50%, rgba(255,255,255,0.02) 100%);
+            pointer-events: none; z-index: 0;
+        }
+        .snow-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: 1;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 60px 60px; opacity: 0.12;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+        }
+        .screen {
+            display: none; min-height: 100vh; padding: 1.5rem;
+            flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; animation: fadeIn 1.2s ease-out;
+            position: relative; z-index: 2;
+        }
+        .active-screen { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .btn-gold {
+            background: linear-gradient(45deg, var(--gold), var(--soft-gold));
+            color: #050b18; padding: 16px 40px; border-radius: 50px;
+            font-weight: 600; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+            text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem;
+        }
+        .btn-gold:active { transform: scale(0.95); }
+
+        .universe-container {
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+            width: 100%; max-width: 500px; padding: 20px 0;
+        }
+        .card-universe {
+            position: relative; overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer; border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 40px;
+        }
+        .card-1 { aspect-ratio: 1/1.2; }
+        .card-2 { aspect-ratio: 1/1.4; transform: translateY(30px); }
+        .card-3 { aspect-ratio: 1/1.4; transform: translateY(-20px); }
+        .card-4 { aspect-ratio: 1/1.1; transform: translateY(10px); }
+        .card-5 { aspect-ratio: 1/1.3; transform: translateY(-10px); }
+        .card-6 { aspect-ratio: 1/1.2; transform: translateY(20px); }
+
+        .card-image {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.45; transition: transform 1.2s ease;
+            filter: grayscale(10%) brightness(0.7);
+        }
+        .card-universe:hover .card-image { transform: scale(1.15); opacity: 0.7; filter: brightness(0.9); }
+        .card-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(5, 11, 24, 0.95) 0%, rgba(5, 11, 24, 0.2) 60%, transparent 100%);
+            z-index: 2;
+        }
+        .card-content { position: absolute; bottom: 20px; left: 0; right: 0; z-index: 3; padding: 0 15px; }
+        .card-title { color: #fff; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase; }
+
+        .music-toggle {
+            position: fixed; top: 20px; right: 20px; z-index: 50; width: 40px; height: 40px;
+            border-radius: 50%; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: center; color: var(--gold);
+        }
+        
+        .modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(2, 12, 27, 0.98); z-index: 100; align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-content {
+            background: #fff; color: #1a2a44; max-width: 420px; width: 100%;
+            border-radius: 40px; padding: 40px; position: relative;
+            animation: modalPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 80vh; overflow-y: auto;
+        }
+        @keyframes modalPop { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    </style>
+</head>
+<body>
+    <div class="snow-bg"></div>
+    <audio id="bgMusic" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
+
+    <button class="music-toggle" onclick="toggleMusic()" id="musicBtn">
+        <svg id="musicOnIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+        <svg id="musicOffIcon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15zM17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2"></path></svg>
+    </button>
+
+    <div id="screen-welcome" class="screen active-screen">
+        <div class="mb-20">
+            <div class="w-20 h-20 mx-auto border-[1px] border-gold/40 rounded-full flex items-center justify-center mb-12 relative">
+                <div class="absolute inset-0 rounded-full border border-gold animate-pulse opacity-20"></div>
+                <span class="text-3xl">✨</span>
+            </div>
+            <h1 class="text-4xl md:text-6xl mb-4 text-white font-bold tracking-tight px-4 leading-tight">Mathilde……</h1>
+            <h2 class="text-4xl md:text-6xl font-light italic text-gold">c’est</h2>
+        </div>
+        <button onclick="startApp()" class="btn-gold">Explorer</button>
+    </div>
+
+    <div id="screen-intro-text" class="screen">
+        <div class="glass-card p-12 max-w-lg w-full">
+            <h2 class="text-xl mb-10 text-gold uppercase tracking-[0.4em] font-semibold">Douce Mathilde</h2>
+            <div class="text-left space-y-6 text-sm leading-relaxed opacity-80 font-light italic">
+                <p>Ceci est un espace que j'ai créé pour toi, pour célébrer tout ce qui fait que tu es unique.</p>
+                <p>Laisse-toi guider à travers ces quelques univers...</p>
+            </div>
+            <button onclick="goToScreen('screen-home')" class="btn-gold mt-16 w-full">Continuer</button>
+        </div>
+    </div>
+
+    <div id="screen-home" class="screen">
+        <div class="mb-14">
+            <h2 class="text-xl font-light uppercase tracking-[0.4em] text-gold mb-3">La Collection</h2>
+            <div class="w-12 h-[1px] bg-gold/40 mx-auto"></div>
+        </div>
+        <div class="universe-container">
+            <div onclick="openModal('innovation')" class="card-universe card-1">
+                <img src="https://images.unsplash.com/photo-1454165833767-027ffea9e778?auto=format&fit=crop&w=400&q=80" class="card-image">
+                <div class="card-overlay"></div>
+                <div class="card-content"><span class="card-title">Innovation & Travail</span></div>
+            </div>
+            <div onclick="openModal('sport')" class="card-universe card-2">
+                <img src="https://images.unsplash.com/photo-1548690312-e3b507d17a4d?auto=format&fit=crop&w=400&q=80" class="card-image">
+                <div class="card-overlay"></div>
+                <div class="card-content"><span class="card-title">Sport & Performances</span></div>
+            </div>
+            <div onclick="openModal('design')" class="card-universe card-3">
+                <img src="https://images.unsplash.com/photo-1490114538077-0a7f8cb49891?auto=format&fit=crop&w=400&q=80" class="card-image">
+                <div class="card-overlay"></div>
+                <div class="card-content"><span class="card-title">Design & Tendances</span></div>
+            </div>
+            <div onclick="openModal('gastro')" class="card-universe card-4">
+                <img src="https://images.unsplash.com/photo-1550989460-0adf9ea622e2?auto=format&fit=crop&w=400&q=80" class="card-image">
+                <div class="card-overlay"></div>
+                <div class="card-content"><span class="card-title">Gastronomie</span></div>
+            </div>
+            <div onclick="openModal('culture')" class="card-universe card-5">
+                <img src="https://images.unsplash.com/photo-1518929458119-e5bf444c30f4?auto=format&fit=crop&w=400&q=80" class="card-image">
+                <div class="card-overlay"></div>
+                <div class="card-content"><span class="card-title">Culture & Art</span></div>
+            </div>
+            <div onclick="openModal('sexy')" class="card-universe card-6">
+                <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=400&q=80" class="card-image">
+                <div class="card-overlay"></div>
+                <div class="card-content"><span class="card-title text-gold" style="color:var(--gold)">Une femme sexy</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-container" class="modal" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-8 right-8 text-gray-300">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div id="modal-body">
+                <h3 id="modal-title" class="text-lg font-bold mb-8 text-slate-800 uppercase tracking-[0.25em] border-b pb-5 border-gold/10"></h3>
+                <div id="modal-text" class="text-slate-500 leading-relaxed font-light text-sm italic"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('bgMusic');
+        const onIcon = document.getElementById('musicOnIcon');
+        const offIcon = document.getElementById('musicOffIcon');
+
+        function toggleMusic() {
+            if (audio.paused) { audio.play(); onIcon.classList.remove('hidden'); offIcon.classList.add('hidden'); }
+            else { audio.pause(); onIcon.classList.add('hidden'); offIcon.classList.remove('hidden'); }
+        }
+
+        function startApp() {
+            audio.play().then(() => { onIcon.classList.remove('hidden'); offIcon.classList.add('hidden'); }).catch(e => {});
+            goToScreen('screen-intro-text');
+        }
+
+        const universeData = {
+            innovation: { title: "Innovation et Travail", content: "Ton esprit brillant et ta capacité à inventer demain. Un hommage à ton parcours pro." },
+            sport: { title: "Sport & Performances", content: "La détermination et la force qui t'animent à chaque défi." },
+            design: { title: "Design & Tendances", content: "Ton oeil expert pour le beau et ton élégance naturelle." },
+            gastro: { title: "Gastronomie", content: "L'art des saveurs et des moments précieux partagés." },
+            culture: { title: "Culture & Art", content: "Ta curiosité insatiable pour l'esprit et la création." },
+            sexy: { title: "Une femme sexy", content: "Ton magnétisme et ta sensualité irrésistible." }
+        };
+
+        function goToScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active-screen'));
+            document.getElementById(screenId).classList.add('active-screen');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openModal(id) {
+            const data = universeData[id];
+            document.getElementById('modal-title').innerText = data.title;
+            document.getElementById('modal-text').innerHTML = `<p>${data.content}</p>`;
+            document.getElementById('modal-container').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal-container').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+    </script>
+</body>
+</html>
+
